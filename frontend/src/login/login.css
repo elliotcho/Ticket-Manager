@@ -1,0 +1,39 @@
+.login-container {
+    height: 100vh;
+    background: pink;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+}
+
+.login-form-container {
+    font-family: 'Montserrat', sans-serif;
+    border: black 1px solid;
+    background: turquoise;
+    align-items: center;
+    display: flex;
+}
+
+.login-form-container form {
+    margin: auto;
+}
+
+.login-form-container  input {
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    font-size: 15px;
+    margin: 10px auto;
+}
+
+.login-form-container button {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    background: #1cd71c;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.login-form-container button:hover {
+   background: #9ce39c;
+}
