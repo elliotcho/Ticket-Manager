@@ -1,9 +1,38 @@
 const argon2 = require('argon2');
 const User = require('../models/user');
+const { createToken } = require('../utils/user');
 
-exports.login = (req, res) => {
-    res.json({
-        message: 'Hello from login'
+exports.login = async (req, res) => {
+    let user;
+    user = await User.findOne({ username: req.body.username });
+
+    if (user == null) {
+        user = await User.findOne({ email: req.body.username });
+
+        if (user == null) {
+            res.json({ 
+                token: '',
+                error: true
+            });
+
+            return;
+        }
+    }
+
+    const isValid = await argon2.verify(user.password, req.body.password);
+    if (!isValid) {
+        res.json({ 
+            token: '',
+            error: true
+        });
+        return;
+    }
+
+    const token = createToken(user._id);
+
+    res.json({ 
+        token,
+        error: false
     });
 };
 

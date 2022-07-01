@@ -19,3 +19,8 @@ exports.deleteTicket = async (req, res) => {
     await Ticket.deleteOne({ _id: req.params.ticketId });
     res.json({message: 'Ticket has been deleted.'});
 };
+
+exports.describeTicket = async (req, res) => {
+    const ticket = await Ticket.findOne({ _id: req.params.ticketId });
+    res.json(ticket);
+};

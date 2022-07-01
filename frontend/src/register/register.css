@@ -1,34 +1,37 @@
-.login-container{
+.signup-container{
     height: 100vh;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     background-color: rgb(255, 255, 255);
 }
 
-.login-form-container{
+.signup-form-container{
     font-family: 'Montserrat', sans-serif; font-weight:400; font-style:italic;
     background: rgb(24, 24, 26);
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 40%;
-    
+    padding-top: 10%;
 }
 
-.login-form-container h3{
+.signup-form-container-register-title{
+    font-family: 'Montserrat', sans-serif; font-weight:400; font-style:normal;
+    color: white;
+}
+
+.signup-form-container h3{
     margin: 3px;
-
 }
 
-.login-form-container form{
+.signup-form-container form{
     margin: 5px auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 70%;
+    width: 70%;
 }
 
-.login-container input{
+.signup-container input{
     font-family: 'Montserrat', sans-serif; font-weight:400; font-style:italic;
     display: block;
     font-size: 15px;
@@ -37,7 +40,7 @@
     padding-left: 10px;
 }
 
-.login-container button{
+.signup-container button{
     font-family: 'Montserrat', sans-serif; font-weight:400; font-style:italic;
     width: 100%;
     border-radius: 8px;
@@ -47,24 +50,6 @@
     font-size: 15px;
 }
 
-.login-container button:hover{
+.signup-container button:hover{
     background: red;
-}
-
-.login-container .login-error {
-    color: red;
-    margin-top: 15px;
-    text-align: center;
-}
- 
-.register-container{
-    background: white;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 5px auto;
-    width: 70%;
-}
-
-.register-container h3{
-    text-align: center;
 }
