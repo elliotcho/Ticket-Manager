@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './login.css';
-import { loginFunction } from './login-operations'
+import { login } from './login-operations'
 
-const Login = (props) => {
-    const [keywords, setKeywords] = useState({});
-    const [password, setPassword] = useState({});
+const Login = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
 
-    const handleSubmit = e =>{
+    const handleSubmit = async (e) =>{
       e.preventDefault();
+
+      const user ={
+        username,
+        password
+      };
+
+      const data = await login(user);
+
+      if(data.error){
+        setError(data.error);
+      } else{
+        window.location.reload();
+      };
+
     };
-
-    useEffect(() => {
-
-    }, []);
     
     return (
       <div class= 'login-container'>
@@ -20,12 +31,27 @@ const Login = (props) => {
 
         <div className='login-form-container'>
           <form onSubmit={handleSubmit}>
-            <h3>Username or Email Address</h3>
-            <input type="text" placeholder="Username..." value={keywords} onChange={e=> setKeywords(e.target.value)}/>
+            <h3>Username</h3>
+            <input 
+              type="text"
+              placeholder="Username..." 
+              value={username} 
+              onChange={e=> setUsername(e.target.value)}
+              required
+            />
 
             <h3>Password</h3>
-            <input type="password" placeholder="Password..." value={password} onChange={e=> setPassword(e.target.value)}/>
+            <input 
+              type="password" 
+              placeholder="Password..." 
+              value={password} 
+              onChange={e=> setPassword(e.target.value)}
+              required
+            />
             <button>Sign In</button>
+
+            {error && <h3 className='login-error'>Something went wrong</h3>}
+            
           </form>
           
           <div className='register-container'>
