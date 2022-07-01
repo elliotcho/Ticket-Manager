@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import Modal from 'react-modal';
 import { describeTicket } from './ticket-operations';
 
-const TicketDetailsModal = () => {
+const TicketDetailsModal = ({ 
+    ticketId, 
+    isOpen, 
+    onClose 
+}) => {
     const [ticket, setTicket] = useState({});
-    const { ticketId } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,13 +19,17 @@ const TicketDetailsModal = () => {
     }, [ticketId]);
 
     return (
-        <div>
+        <Modal isOpen = {isOpen} style={{}}>
             <ul>
                 <li>{ticket.userId}</li>
                 <li>{ticket.content}</li>
                 <li>{ticket.createdAt}</li>
             </ul>
-        </div>
+
+            <button onClick={onClose}>
+                Close
+            </button>
+        </Modal>
     );
 }
 
