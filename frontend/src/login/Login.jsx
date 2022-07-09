@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './login.css';
 import { login } from './login-operations'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -10,18 +11,19 @@ const Login = () => {
     const handleSubmit = async (e) =>{
       e.preventDefault();
 
-      const user = {
-        username, 
+      const user ={
+        username,
         password
       };
 
       const data = await login(user);
 
-      if (data.error) {
+      if(data.error){
         setError(data.error);
-      } else {
+      } else{
         window.location.reload();
-      }
+      };
+
     };
     
     return (
@@ -30,9 +32,9 @@ const Login = () => {
 
         <div className='login-form-container'>
           <form onSubmit={handleSubmit}>
-            <h3>Username or Email Address</h3>
+            <h3>Username</h3>
             <input 
-              type="text" 
+              type="text"
               placeholder="Username..." 
               value={username} 
               onChange={e=> setUsername(e.target.value)}
@@ -49,12 +51,12 @@ const Login = () => {
             />
             <button>Sign In</button>
 
-            {/* if left side is true && shows whatever is on the right side */}
             {error && <h3 className='login-error'>Something went wrong</h3>}
+            
           </form>
           
           <div className='register-container'>
-            <h3>Create an Account</h3>
+            <Link to="/register" className='register-link'><h3>Create an Account</h3></Link>
           </div>
         </div>
 

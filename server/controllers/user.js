@@ -1,5 +1,6 @@
 const argon2 = require('argon2');
 const User = require('../models/user');
+<<<<<<< HEAD
 const { createToken } = require('../utils/user');
 
 exports.login = async (req, res) => {
@@ -31,6 +32,37 @@ exports.login = async (req, res) => {
     const token = createToken(user._id);
 
     res.json({ 
+=======
+const { createToken } = require('../utils/user')
+
+exports.login = async (req, res) => {
+    let user;
+    user = await User.findOne({ username: req.body.username });
+    
+    if (user == null){
+        user = await User.findOne({ email: req.body.username });
+
+        if (user == null){
+            res.json({ 
+                token: '',
+                error: true
+            });
+            return;
+        }
+    }
+    const isValid = await argon2.verify(user.password, req.body.password);
+    if (!isValid){
+        res.json({ 
+            token: '',
+            error: true
+        });
+        return;
+    };
+
+    const token = createToken(user._id);
+
+    res.json({
+>>>>>>> 5b82ef43a65f742b47356ce10309f01246ed5bcb
         token,
         error: false
     });
@@ -69,5 +101,14 @@ exports.register = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     await User.deleteOne({ _id: req.params.userId });
+<<<<<<< HEAD
     res.json({ message: 'User has been deleted.' })
+=======
+    res.json({ message: 'User has been deleted.' });
+};
+
+exports.describeUser = async (req, res) => {
+    const user = await User.findOne({ id : req.body.userId });
+    res.json(user);
+>>>>>>> 5b82ef43a65f742b47356ce10309f01246ed5bcb
 };

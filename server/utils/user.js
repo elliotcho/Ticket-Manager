@@ -5,4 +5,5 @@ exports.createToken = (userId) => {
     const token = jwt.sign({ userId }, tokenSecret, { expiresIn: '3d' });
 
     return token;
-};
+}
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { register } from './register-operations';
 import './register.css';
+import { register } from './register-operations'
 
 const Register = () => {
     const [email, setEmailAddress] = useState("");
@@ -13,11 +13,11 @@ const Register = () => {
       e.preventDefault();
 
       const user = {
-          email,
-          username,
-          firstName,
-          lastName,
-          password
+        email,
+        username,
+        firstName,
+        lastName,
+        password
       };
 
       await register(user);
@@ -44,7 +44,7 @@ const Register = () => {
             <input 
               type="text" 
               placeholder="Username..." 
-              value={username}
+              value={username} 
               onChange={e=> setUsername(e.target.value)}
               required
             />
