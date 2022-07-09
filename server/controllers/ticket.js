@@ -23,4 +23,11 @@ exports.deleteTicket = async (req, res) => {
 exports.describeTicket = async (req, res) => {
     const ticket = await Ticket.findOne({ _id: req.params.ticketId });
     res.json(ticket);
-}
+};
+
+exports.getTickets = async (req, res) => {
+
+    //const tickets = await Ticket.find({});
+
+    res.json({"test": "testString"});
+};

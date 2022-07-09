@@ -17,7 +17,6 @@
 
 .login-form-container h3{
     margin: 3px;
-
 }
 
 .login-form-container form{
@@ -26,6 +25,7 @@
     padding: 20px;
     border-radius: 8px;
     max-width: 70%;
+    width: 65%;
 }
 
 .login-container input{
@@ -68,3 +68,8 @@
 .register-container h3{
     text-align: center;
 }
+
+.register-link{
+    text-decoration: None;
+}
+

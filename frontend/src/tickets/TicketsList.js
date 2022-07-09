@@ -4,18 +4,22 @@ import TicketDetailsModal from './TicketDetailsModal';
 
 const TicketsList = () => {
 
-    const ticketId = '62a6bcc002428df2566cef61';
+    const [setTicketId, ticketId] = '62a6bcc002428df2566cef61';
     const [isOpen, setIsOpen] = useState(false);
+
+    const seeTicket = async =>{
+        setIsOpen(true);
+    };
 
 
     return(
 
         <div>
 
-            <h3>Hello World</h3>
+            <h3>TICKET LIST</h3>
 
-            <button onClick = {()=> setIsOpen(true)}>
-                See Ticket
+            <button onClick = {seeTicket}>
+                {ticketId}
             </button>
 
             <TicketDetailsModal
@@ -25,8 +29,9 @@ const TicketsList = () => {
             />
 
             <button onClick={logout}>
-                logout
+                Logout
             </button>
+            
         </div>
     
 

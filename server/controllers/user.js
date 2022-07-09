@@ -67,5 +67,10 @@ exports.register = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     await User.deleteOne({ _id: req.params.userId });
-    res.json({ message: 'User has been deleted.' })
+    res.json({ message: 'User has been deleted.' });
+};
+
+exports.describeUser = async (req, res) => {
+    const user = await User.findOne({ id : req.body.userId });
+    res.json(user);
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './login.css';
 import { login } from './login-operations'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -55,7 +56,7 @@ const Login = () => {
           </form>
           
           <div className='register-container'>
-            <h3>Create an Account</h3>
+            <Link to="/register" className='register-link'><h3>Create an Account</h3></Link>
           </div>
         </div>
 
