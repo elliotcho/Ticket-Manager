@@ -6,4 +6,3 @@ exports.createToken = (userId) => {
 
     return token;
 }
-

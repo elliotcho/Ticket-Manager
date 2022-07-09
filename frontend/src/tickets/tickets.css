@@ -1,0 +1,39 @@
+.ReactModal__Overlay {
+    z-index: 99;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+}
+
+.ReactModal__Content {
+    width: 70%;
+    height: 45%;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,97,0.5);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+}
+
+.tickets-list-container {
+    height: 100vh;
+    overflow: auto;
+}
+
+.ticket {
+    margin: 30px;
+    border: 1px solid black;
+    cursor: pointer;
+    max-width: 600px;
+}
+
+.ticket:hover {
+    box-shadow: 0 0 0 5px;
+}

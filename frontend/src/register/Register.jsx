@@ -8,6 +8,7 @@ const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
 
     const handleSubmit = async (e) =>{
       e.preventDefault();
@@ -20,12 +21,17 @@ const Register = () => {
         password
       };
 
-      await register(user);
+      const data = await register(user);
+
+      if (data.error){
+          setError(data.error);
+      } else{
+          window.location.reload();
+      };
     };
    
     return (
       <div class= 'signup-container'>
-
         <div></div>
 
         <div className='signup-form-container'>
@@ -77,11 +83,12 @@ const Register = () => {
             />
 
             <button>Register</button>
+
+            {error && <h3 className='signup-error'>Something went wrong</h3>}
           </form>
         </div>
 
         <div></div>
-
       </div>
       
     );

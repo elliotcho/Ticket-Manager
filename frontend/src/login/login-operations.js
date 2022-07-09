@@ -9,6 +9,5 @@ export const login = async (body) => {
         window.localStorage.setItem("token", data.token);
     }
 
-
     return data;
 };

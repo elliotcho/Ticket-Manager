@@ -1,4 +1,5 @@
 const Ticket = require('../models/ticket');
+const User = require('../models/user');
 const { ticketStatusMap } = require('../utils/ticket');
 
 exports.createTicket = async (req, res) => {
@@ -23,14 +24,18 @@ exports.deleteTicket = async (req, res) => {
 exports.describeTicket = async (req, res) => {
     const ticket = await Ticket.findOne({ _id: req.params.ticketId });
     res.json(ticket);
-<<<<<<< HEAD
-=======
 };
 
-exports.getTickets = async (req, res) => {
+exports.listTickets = async (req, res) => {
+    const { prefix } = req.body;
+    const tickets = await Ticket.find({ content: { $regex: prefix } });
 
-    //const tickets = await Ticket.find({});
+    for (let i=0;i<tickets.length;i++) {
+        const ticket = tickets[i]._doc;
+        const user = await User.findOne({ _id: ticket.userId });
+        
+        ticket.username = user.username;
+    }
 
-    res.json({"test": "testString"});
->>>>>>> 5b82ef43a65f742b47356ce10309f01246ed5bcb
+    res.json(tickets);
 };

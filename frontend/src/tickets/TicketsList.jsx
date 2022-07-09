@@ -1,21 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { listTickets } from './ticket-operations';
 import TicketDetailsModal from './TicketDetailsModal';
+import Ticket from './Ticket';
 import logout from '../utils/logout';
 
 const TicketsList = () => {
-    const ticketId = "62b6900ff227440cb5495751";
+    const [prefix, setPrefix] = useState('');
+    const [ticketList, setTicketList] = useState([]);
+    const [ticketMap, setTicketMap] = useState({});
+    const [ticketId, setTicketId] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const ticketsResponse = await listTickets({ prefix });
+
+            const map = {};
+            for (let i=0;i<ticketsResponse.length;i++) {
+                const ticket = ticketsResponse[i];
+                map[ticket._id] = ticket;
+            }
+
+            setTicketList(ticketsResponse);
+            setTicketMap(map);
+        };
+
+        fetchData();
+    }, [prefix]);
+
+    const ticketComponents = ticketList.map(t => {
+        return (
+            <Ticket
+                key = {t._id}
+                content = {t.content}
+                createdAt = {t.createdAt}
+                seeDetails = {() => {
+                    setTicketId(t._id)
+                    setIsOpen(true);
+                }}
+                username = {t.username}
+                ticketId = {t._id}
+            />
+        );
+    });
+
     return (
-        <div>
+        <div className='tickets-list-container'>
             <h3>Hello</h3>
 
-            <button onClick = {() => setIsOpen(true)}>
-                See ticket
-            </button>
+            <input 
+              type="text"
+              placeholder="Search tickets"
+              onChange = {e => setPrefix(e.target.value)} 
+              value={prefix} 
+            />
+
+            {ticketComponents}
 
             <TicketDetailsModal 
-                ticketId = {ticketId}
+                ticket = {ticketMap[ticketId]}
                 onClose = {() => setIsOpen(false)}
                 isOpen = {isOpen}
             />

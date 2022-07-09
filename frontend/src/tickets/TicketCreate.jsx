@@ -1,24 +1,23 @@
 import React, { useState } from "react";
-import { createTicket, describeUser } from './ticket-operations';
+import { createTicket } from './ticket-operations';
+import { describeUser } from '../common/operations';
 import decode from 'jwt-decode';
 
 const TicketCreate = () => {
     const [content, setContent] = useState("");
     const token = window.localStorage.getItem("token");
-    const id = decode(token);
-
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        const userId = await describeUser(id);
+        const userId = await describeUser(decode(token).userId);
 
         const ticket = {
             userId,
             content
         };
     
-        const data = await createTicket(ticket);
-
+        await createTicket(ticket);
         setContent("");
     };
 
@@ -40,7 +39,6 @@ const TicketCreate = () => {
             <button>SUBMIT</button>
           </form>
         </div>
-
       </div>
     );
 

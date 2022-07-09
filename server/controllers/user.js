@@ -1,38 +1,5 @@
 const argon2 = require('argon2');
 const User = require('../models/user');
-<<<<<<< HEAD
-const { createToken } = require('../utils/user');
-
-exports.login = async (req, res) => {
-    let user;
-    user = await User.findOne({ username: req.body.username });
-
-    if (user == null) {
-        user = await User.findOne({ email: req.body.username });
-
-        if (user == null) {
-            res.json({ 
-                token: '',
-                error: true
-            });
-
-            return;
-        }
-    }
-
-    const isValid = await argon2.verify(user.password, req.body.password);
-    if (!isValid) {
-        res.json({ 
-            token: '',
-            error: true
-        });
-        return;
-    }
-
-    const token = createToken(user._id);
-
-    res.json({ 
-=======
 const { createToken } = require('../utils/user')
 
 exports.login = async (req, res) => {
@@ -62,7 +29,6 @@ exports.login = async (req, res) => {
     const token = createToken(user._id);
 
     res.json({
->>>>>>> 5b82ef43a65f742b47356ce10309f01246ed5bcb
         token,
         error: false
     });
@@ -73,17 +39,22 @@ exports.register = async (req, res) => {
     const hasEmail = await User.findOne({ email: req.body.email });
 
     if (hasUsername !== null) {
-        res.json({ message: 'username taken' });
+        res.json({ 
+            token: '',
+            error: true
+        });
     } 
 
     else if (hasEmail !== null) {
-        res.json({ message: "email is already in use" });
+        res.json({ 
+            token: '',
+            error: true
+        });
     } 
 
     else {
         const hashedPassword = await argon2.hash(req.body.password);
-
-        const user = new User({
+        const userInfo = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
@@ -91,24 +62,24 @@ exports.register = async (req, res) => {
             password: hashedPassword,
             isAdmin: false,
             enabled: false
+        };
+
+        const user = await new User(userInfo).save();
+        const token = createToken(user._id);
+
+        res.json({
+            token,
+            error: false
         });
-    
-        await user.save();
-        
-        res.json({ message: 'user created'});
     }
 };
 
 exports.deleteUser = async (req, res) => {
     await User.deleteOne({ _id: req.params.userId });
-<<<<<<< HEAD
-    res.json({ message: 'User has been deleted.' })
-=======
     res.json({ message: 'User has been deleted.' });
 };
 
 exports.describeUser = async (req, res) => {
-    const user = await User.findOne({ id : req.body.userId });
+    const user = await User.findOne({ _id : req.params.userId });
     res.json(user);
->>>>>>> 5b82ef43a65f742b47356ce10309f01246ed5bcb
 };
