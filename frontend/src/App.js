@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 
 import isAuthenticated from './utils/isAuthenticated';
-import { AuthenticatedRoute, UnauthenticatedRoute } from './utils/protectRoutes';
+import { AuthenticatedRoute, UnauthenticatedRoute, AdminRoute } from './utils/protectRoutes';
 
 import Login from "./login/Login";
 import Register from "./register/Register";
@@ -18,6 +18,7 @@ function App() {
         {AuthenticatedRoute('/create', <TicketCreate />)}
         {AuthenticatedRoute('/profile', <Profile />)}
         {UnauthenticatedRoute('/register', <Register/>)}
+        {AdminRoute('/admin', <h1>I AM AN ADMIN</h1>)}
         <Route path="*" element={<DeadPage/>}/>
       </Routes>
     </BrowserRouter>
